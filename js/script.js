@@ -70,4 +70,17 @@ function showLookup() {
   display.innerHTML = num;
 };
 
+function showReverseLookup() {
+  var lookup = prompt("Enter number to lookup");
+  var name = "";
+  for(var i = 0; i < pb.phoneBook.length ; i++)
+  {
+    if(pb.phoneBook[i].number == lookup)
+    {
+      name += pb.phoneBook[i].name;
+    }
+  }
+  display.innerHTML = name;
+}
+
 var display = document.getElementById("display");
