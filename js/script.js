@@ -15,7 +15,12 @@ function listAllNumbers() {
   var str = "";
   for(var i=0 ; i < pb.phoneBook.length ; i++)
   {
-    str += pb.phoneBook[i].name + " : " + pb.phoneBook[i].number + "<br />";
+    str += pb.phoneBook[i].name + ":" + "<br />";
+    for(var j=0 ; j < pb.phoneBook[i].number.length ; j++)
+    {
+      console.log(pb.phoneBook[i].number[j]);
+      str += (j+1) + ": " + pb.phoneBook[i].number[j] + "<br />";
+    }
   }
   display.innerHTML = str;
 };
@@ -30,11 +35,18 @@ function listAllNames() {
   display.innerHTML = str;
 };
 
-function Contact(name, number)
+function Contact(name, num)
 {
   this.name = name;
-  this.number = number;
+  this.number = [];
+  this.number.push(num);
+  /*this.numberList = new NumberList();
+  this.numberList.push(num);*/
 }
+
+/*{
+  this.numberList=[];
+}*/
 
 function showAdd() {
 
@@ -45,7 +57,20 @@ function showAdd() {
   counter++;
 };
 
-function showRemove() {
+function showAddNumber() {
+  var name = prompt("Enter name to add additional number");
+  var number =prompt("Enter additional number");
+  for(var i=0 ; i < pb.phoneBook.length ; i++)
+  {
+    if(pb.phoneBook[i].name == name)
+    {
+      pb.phoneBook[i].number.push(number);
+    }
+  }
+}
+
+function showRemove()
+{
   var remove = prompt("Enter name to remove");
   for(var i = 0 ; i < pb.phoneBook.length ; i++)
   {
@@ -54,8 +79,28 @@ function showRemove() {
       pb.phoneBook.splice(i,1);
     }
   }
+}
 
-};
+function showRemoveNumber()
+{
+  var remove = prompt("Enter name to remove number");
+  var removeDisplay = "Note number corresponding to entry you'd like to remove <br />";
+  var removeNameIndex;
+  for(var i=0 ; i <pb.phoneBook.length ; i++)
+  {
+    if(pb.phoneBook[i].name == remove)
+    {
+      removeNameIndex = i;
+      for(var j=0 ; j<pb.phoneBook[i].number.length ; j++)
+      {
+        removeDisplay += (j+1) + ": " + pb.phoneBook[i].number[j] + "<br />";
+      }
+    }
+  }
+  var removeNum = prompt("Which entry would you like to remove?");
+  pb.phoneBook[removeNameIndex].number.splice(removeNum-1, 1);
+}
+
 
 function showLookup() {
   var lookup = prompt("Enter name to lookup");
@@ -64,20 +109,27 @@ function showLookup() {
   {
     if(pb.phoneBook[i].name == lookup)
     {
-      num += pb.phoneBook[i].number;
+      for(var j = 0 ; j < pb.phoneBook[i].number.length ; j++)
+      {
+        num += pb.phoneBook[i].number[j];
+      }
     }
   }
   display.innerHTML = num;
 };
 
-function showReverseLookup() {
+function showReverseLookup()
+{
   var lookup = prompt("Enter number to lookup");
   var name = "";
   for(var i = 0; i < pb.phoneBook.length ; i++)
   {
-    if(pb.phoneBook[i].number == lookup)
+    for(var j=0; j < pb.phoneBook.length ; j++)
     {
-      name += pb.phoneBook[i].name;
+      if(pb.phoneBook[i].number[j]== lookup)
+      {
+        name += pb.phoneBook[i].name;
+      }
     }
   }
   display.innerHTML = name;
