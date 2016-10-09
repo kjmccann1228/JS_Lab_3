@@ -10,6 +10,16 @@ function PhoneBook()
 
 };
 
+function listAllNumbers() {
+  // code to list all numbers
+  var str = "";
+  for(var i=0 ; i < pb.phoneBook.length ; i++)
+  {
+    str += pb.phoneBook[i].name + " : " + pb.phoneBook[i].number + "<br />";
+  }
+  display.innerHTML = str;
+};
+
 function listAllNames() {
   // code to list all names
   var str = "";
@@ -18,10 +28,6 @@ function listAllNames() {
     str += pb.phoneBook[i].name + "<br />";
   }
   display.innerHTML = str;
-};
-
-function listAllNumbers() {
-  // code to list all numbers
 };
 
 function Contact(name, number)
